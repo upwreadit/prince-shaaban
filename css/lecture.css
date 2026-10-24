@@ -1,0 +1,142 @@
+/* ============================================================
+   Pages de lecture (chapitres) — s'ajoute à style.css
+   ============================================================ */
+
+/* ---- Thèmes de lecture (sombre par défaut) ---- */
+html[data-theme="sepia"] {
+  --noir: #f3ead6; --noir-2: #ebe0c6; --noir-3: #e3d6b8;
+  --os: #2c2217; --os-dim: #5b4a38;
+  --or: #8a5f1c; --rouge-vif: #a3161f; --rouge: #8c1219;
+  --trait: rgba(44, 34, 23, 0.16); --trait-or: rgba(138, 95, 28, 0.45);
+  --barre-bg: rgba(243, 234, 214, 0.92); --pied-bg: #e3d6b8; --contact-bg: #ebe0c6;
+}
+html[data-theme="clair"] {
+  --noir: #fbf9f4; --noir-2: #f2eee5; --noir-3: #e9e3d6;
+  --os: #1b1814; --os-dim: #55504a;
+  --or: #8a5f1c; --rouge-vif: #a3161f; --rouge: #8c1219;
+  --trait: rgba(27, 24, 20, 0.14); --trait-or: rgba(138, 95, 28, 0.4);
+  --barre-bg: rgba(251, 249, 244, 0.93); --pied-bg: #e9e3d6; --contact-bg: #f2eee5;
+}
+html[data-theme="sepia"] body::before, html[data-theme="clair"] body::before { display: none; }
+html[data-theme="sepia"], html[data-theme="clair"] { --wa-txt: #0b6b35; }
+
+/* ---- Barre de lecture ---- */
+.barre-lecture .barre-in { max-width: 56rem; }
+.retour {
+  display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.5rem; padding: 0.4rem 1.05rem;
+  border: 1px solid var(--trait-or); border-radius: 999px; text-decoration: none; color: var(--os-dim);
+  font-family: var(--f-ui); font-weight: 500; font-size: 1rem; letter-spacing: 0.084em; text-transform: uppercase;
+  background-image: linear-gradient(100deg, var(--rouge), var(--rouge-vif) 70%, var(--ambre));
+  background-repeat: no-repeat; background-position: left center; background-size: 0% 100%;
+  transition: background-size 0.38s ease, color 0.25s, border-color 0.25s, transform 0.25s;
+}
+.retour:hover, .retour:focus-visible { background-size: 100% 100%; color: #f6f0e4; border-color: var(--rouge-vif); transform: translateY(-2px); }
+.repere {
+  position: relative; flex: 1 1 auto; min-width: 0; display: grid; text-align: right;
+}
+.repere > span {
+  grid-area: 1 / 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.repere-haut { font-family: var(--f-ui); font-weight: 500; font-size: 1rem; letter-spacing: 0.098em; text-transform: uppercase; color: var(--or); }
+.repere-titre { font-family: var(--f-ui); font-size: 0.92rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--or); align-self: center; }
+/* Avec JavaScript : l'indication de partie s'efface et le titre prend sa place dès que le grand titre a défilé */
+.js .repere-titre { opacity: 0; transform: translateY(8px); }
+.js .barre-lecture.titre-compact .repere-titre { opacity: 1; transform: none; }
+.js .barre-lecture.titre-compact .repere-haut { opacity: 0; transform: translateY(-8px); }
+/* Sans JavaScript : on montre directement le titre */
+html:not(.js) .repere-haut { display: none; }
+#avance-lecture {
+  position: fixed; top: 0; left: 0; z-index: 60; height: 4px; width: 0;
+  background: linear-gradient(90deg, var(--rouge-vif), var(--or)); transition: width 0.12s linear;
+}
+
+/* ---- En-tête du chapitre ---- */
+.chap-tete { max-width: 44rem; margin: 0 auto; padding: clamp(2.6rem, 8vw, 5rem) var(--marge) 1rem; text-align: center; }
+.chap-etiquette {
+  margin: 0 0 0.9rem; font-family: var(--f-ui); font-weight: 600; font-size: 1rem; letter-spacing: 0.21em; text-transform: uppercase; color: var(--or);
+}
+.chap-tete h1 {
+  margin: 0; font-family: var(--f-titre);  line-height: 1.08; letter-spacing: 0.02em;
+  font-size: clamp(2rem, 1.1rem + 4.4vw, 3.8rem); color: var(--os); font-weight: 400;}
+html:not([data-theme]) .chap-tete h1, html[data-theme="sombre"] .chap-tete h1 {
+  background: linear-gradient(180deg, #fbeab0 0%, #d6b25e 45%, #8f6a2a 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+.chap-meta { margin: 1rem 0 0; font-family: var(--f-fine); font-style: normal;  font-size: 1.3rem; color: var(--os-dim); font-weight: 400;}
+.chap-orn { margin: 1.4rem 0 0; color: var(--or); letter-spacing: 0.7em; font-size: 0.95rem; }
+
+/* ---- Réglages de confort ---- */
+.reglages {
+  max-width: 36rem; margin: 1.4rem auto 0; padding: 0 var(--marge);
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem 1.6rem;
+}
+.reglage { display: flex; align-items: center; gap: 0.6rem; }
+.reglage-nom { font-family: var(--f-ui); font-weight: 500; font-size: 0.95rem; letter-spacing: 0.098em; text-transform: uppercase; color: var(--os-dim); }
+.mini {
+  min-width: 2.6rem; min-height: 2.6rem; padding: 0.3rem 0.8rem;
+  font-family: var(--f-ui); font-weight: 600; font-size: 1rem; letter-spacing: 0.056em; line-height: 1;
+  color: var(--os-dim); background: transparent; border: 1px solid var(--trait-or); border-radius: 999px; cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
+}
+.mini:hover { border-color: var(--or); color: var(--os); transform: translateY(-1px); }
+.mini[aria-pressed="true"] { background: var(--rouge); border-color: var(--rouge-vif); color: #f6f0e4; }
+.groupe-mini { display: inline-flex; gap: 0.4rem; }
+
+/* ---- Texte du chapitre ---- */
+.lecture {
+  --lt: 1;
+  max-width: 36rem; margin: 0 auto; padding: 2.2rem var(--marge) 1rem;
+  font-family: var(--f-texte);
+  font-size: calc(1.1rem * var(--lt)); line-height: 1.78;
+  hyphens: auto; -webkit-hyphens: auto; hyphenate-limit-chars: 6 3 3;
+  overflow-wrap: break-word;
+}
+.lecture p { margin: 0 0 1.1em; color: var(--os); }
+.lecture em { font-style: italic; }
+.lecture[data-police="serif"] { font-family: var(--f-serif); line-height: 1.8; }
+.lecture strong { font-weight: 600; }
+.lecture p.sep { text-align: center; margin: 1.8em 0; color: var(--or); letter-spacing: 0.7em; }
+
+/* ---- Fin de chapitre ---- */
+.chap-fin { max-width: 36rem; margin: 0 auto; padding: 1rem var(--marge) 0; text-align: center; }
+.chap-fin .orn { color: var(--or); letter-spacing: 0.7em; margin: 0 0 2rem; }
+.chap-nav { display: flex; justify-content: space-between; gap: 0.9rem; flex-wrap: wrap; margin: 0 0 1rem; }
+.chap-nav .bouton { flex: 1 1 14rem; }
+.bouton.inactif { opacity: 0.45; pointer-events: none; filter: grayscale(0.6); }
+.chap-nav .bientot { display: block; font-size: 0.8rem; letter-spacing: 0.12em; }
+
+.apres { max-width: 36rem; margin: 2.6rem auto 0; padding: 0 var(--marge) clamp(3rem, 8vw, 5rem); text-align: center; }
+.apres h2 { margin: 0 0 0.6rem; font-family: var(--f-titre);  font-size: clamp(1.4rem, 1rem + 1.4vw, 1.9rem); color: var(--os); font-weight: 400;}
+.apres p { margin: 0 0 1.4rem; color: var(--os-dim); }
+.apres .contact-actions { justify-content: center; }
+
+@media (max-width: 560px) {
+  .retour-txt { display: none; }
+  .retour { min-width: 2.7rem; padding: 0.4rem 0.9rem; }
+  .repere-haut { font-size: 0.9rem; letter-spacing: 0.1em; }
+  .repere-titre { font-size: 0.8rem; }
+  .repere-titre .mot { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { #avance-lecture, .mini, .retour, .repere > span { transition: none; } }
+
+
+/* Réglages : retour à la ligne propre sur très petits écrans */
+.reglage { flex-wrap: wrap; justify-content: center; }
+.groupe-mini { flex-wrap: wrap; justify-content: center; }
+@media (max-width: 400px) {
+  .mini { min-width: 2.4rem; padding: 0.3rem 0.65rem; font-size: 0.95rem; }
+}
+
+/* Lueur derrière le titre (thème sombre) : un dégradé, plus robuste qu'un filtre sur du texte découpé */
+html:not([data-theme]) .chap-tete, html[data-theme="sombre"] .chap-tete {
+  background: radial-gradient(ellipse 60% 55% at 50% 38%, rgba(163, 22, 31, 0.24), transparent 72%);
+}
+
+/* Aparté : texte centré en italique (changement de voix) */
+.lecture p.aparte {
+  font-family: var(--f-serif); font-style: italic; text-align: center; hyphens: none;
+  margin: 2em auto; padding: 0 0.6rem; max-width: 30rem; color: var(--os-dim);
+  border-top: 1px solid var(--trait-or); border-bottom: 1px solid var(--trait-or); padding-top: 1.1em; padding-bottom: 1.1em;
+}
+.lecture p.aparte em { font-style: italic; }
