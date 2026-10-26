@@ -590,3 +590,19 @@ section[id] { scroll-margin-top: calc(var(--haut-barre) + 1rem); }
 .montant:active { transform: scale(0.96); }
 html[data-theme="sepia"] .montant, html[data-theme="clair"] .montant { color: #00508a; }
 @media (prefers-reduced-motion: reduce) { .montant { transition: none; } }
+
+/* ---------- Boutons WhatsApp : police et design propres à WhatsApp ---------- */
+:root { --f-wa: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif; }
+.bouton.wa {
+  font-family: var(--f-wa); font-weight: 600; font-size: 1.02rem; letter-spacing: 0; text-transform: none;
+  color: #fff; background: #25d366; border: 1px solid #25d366; border-radius: 999px;
+  padding: 0.7rem 1.5rem; gap: 0.6rem; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.18);
+  transition: background-color 0.25s, color 0.25s, transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+.bouton.wa::before { display: none; }
+.bouton.wa:hover, .bouton.wa:focus-visible {
+  background: #1ebe5d; border-color: #1ebe5d; box-shadow: 0 10px 26px rgba(37, 211, 102, 0.38); transform: translateY(-2px);
+}
+.bouton.wa.contour { background: transparent; color: var(--wa-txt); border: 1.5px solid #25d366; text-shadow: none; }
+.bouton.wa.contour:hover, .bouton.wa.contour:focus-visible { background: #25d366; color: #062d17; border-color: #25d366; }
+.bouton.wa .wa-ico { width: 1.4rem; height: 1.4rem; flex: 0 0 auto; }

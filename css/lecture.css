@@ -140,3 +140,6 @@ html:not([data-theme]) .chap-tete, html[data-theme="sombre"] .chap-tete {
   border-top: 1px solid var(--trait-or); border-bottom: 1px solid var(--trait-or); padding-top: 1.1em; padding-bottom: 1.1em;
 }
 .lecture p.aparte em { font-style: italic; }
+
+/* Petit blanc supplémentaire (changement de voix narrative) */
+.lecture p.pause { margin-bottom: 2.6em; }
