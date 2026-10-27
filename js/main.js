@@ -2,6 +2,7 @@
 (function () {
   "use strict";
 
+  var EN = document.documentElement.lang === "en";
   var reduit = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* Année du pied de page */
@@ -17,7 +18,7 @@
     barre.classList.remove("ouvert");
     if (bouton) {
       bouton.setAttribute("aria-expanded", "false");
-      bouton.setAttribute("aria-label", "Ouvrir le menu");
+      bouton.setAttribute("aria-label", EN ? "Open the menu" : "Ouvrir le menu");
       if (rendreFocus) { bouton.focus(); }
     }
   }
@@ -25,7 +26,7 @@
     bouton.addEventListener("click", function () {
       var ouvert = barre.classList.toggle("ouvert");
       bouton.setAttribute("aria-expanded", ouvert ? "true" : "false");
-      bouton.setAttribute("aria-label", ouvert ? "Fermer le menu" : "Ouvrir le menu");
+      bouton.setAttribute("aria-label", ouvert ? (EN ? "Close the menu" : "Fermer le menu") : (EN ? "Open the menu" : "Ouvrir le menu"));
     });
     menu.addEventListener("click", function (e) {
       if (e.target.closest && e.target.closest("a")) { fermer(false); }
@@ -77,7 +78,7 @@
   Array.prototype.forEach.call(document.querySelectorAll("[data-copie]"), function (b) {
     b.addEventListener("click", function () {
       var valeur = b.getAttribute("data-copie"), libelle = b.textContent;
-      var fini = function () { b.classList.add("ok"); b.textContent = "Copié ✓"; setTimeout(function () { b.classList.remove("ok"); b.textContent = libelle; }, 1800); };
+      var fini = function () { b.classList.add("ok"); b.textContent = EN ? "Copied ✓" : "Copié ✓"; setTimeout(function () { b.classList.remove("ok"); b.textContent = libelle; }, 1800); };
       if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(valeur).then(fini, function () {}); }
       else {
         var t = document.createElement("textarea"); t.value = valeur; t.style.position = "fixed"; t.style.opacity = "0";

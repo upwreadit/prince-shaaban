@@ -534,6 +534,36 @@ section[id] { scroll-margin-top: calc(var(--haut-barre) + 1rem); }
 }
 .bouton.paypal:hover, .bouton.paypal:focus-visible { border-color: #8cc9ff; box-shadow: 0 12px 30px rgba(0, 112, 186, 0.4); }
 .note-soutien { margin: 1rem 0 0; font-size: 0.9rem; color: var(--os-dim); }
+
+/* ---------- Sélecteur de langue FR / EN ---------- */
+.langue {
+  display: inline-flex; align-items: stretch; flex: none; margin-left: 0.6rem; overflow: hidden;
+  border: 1px solid var(--trait-or); border-radius: 999px;
+  font-family: var(--f-ui); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.1em; line-height: 1;
+}
+.langue a, .langue .actif {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 2.6rem; height: 2.4rem; padding: 0 0.7rem; text-decoration: none;
+}
+.langue a { color: var(--os-dim); transition: background-color 0.25s, color 0.25s; }
+.langue a:hover, .langue a:focus-visible { color: var(--os); background-color: rgba(211, 38, 47, 0.45); }
+.langue .actif { color: var(--noir); background: var(--or); cursor: default; }
+@media (max-width: 480px) {
+  .langue { margin-left: 0.35rem; }
+  .langue a, .langue .actif { min-width: 2.2rem; padding: 0 0.45rem; }
+}
+@media (max-width: 1180px) {
+  .langue { order: 1; }
+  .js .menu-btn { order: 2; }
+  .nav { order: 3; }
+}
+
+/* ---------- Soutien : e-books ---------- */
+.soutien-livres { margin-top: 1.6rem; padding-top: 1.3rem; border-top: 1px solid var(--trait); }
+.soutien-livres h3 {
+  margin: 0 0 0.6rem; font-family: var(--f-ui); font-weight: 600; font-size: 0.95rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--or);
+}
+.soutien-livres p { margin: 0 0 1rem; color: var(--os-dim); font-size: 1rem; }
+.soutien-livres .contact-actions { margin-top: 0; }
 @media (prefers-reduced-motion: reduce) { .copier, .soutien summary::after { transition: none; } }
 
 
